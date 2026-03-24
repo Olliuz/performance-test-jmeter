@@ -1,0 +1,28 @@
+==========================================================
+ANÁLISIS TÉCNICO DE RESULTADOS - PRUEBA DE CARGA LOGIN
+==========================================================
+
+1. MÉTRICAS OBTENIDAS
+------------------------------------
+* Muestras totales: 5747
+* Tiempo de Respuesta Medio: 596 ms
+* Tiempo de Respuesta Máximo: 2753 ms
+* Rendimiento (Throughput): 19.1 TPS
+* Porcentaje de Error: 7.01 %
+
+2. HALLAZGOS TÉCNICOS PROFUNDOS
+-------------------------------
+* Inestabilidad en Carga Alta: La desviación estándar (259.58) comparada 
+  con la media indica que hubo una variabilidad notable en los tiempos 
+  de respuesta.
+* Error de Autenticación/Conexión: Al observar un 7% de error con 19.1 TPS, 
+  es muy probable que FakeStoreAPI esté aplicando "Rate Limiting" 
+  (límite de peticiones) para proteger su infraestructura.
+
+3. CONCLUSIÓN FINAL
+-------------------
+ESTADO: RECHAZADO / FALLIDO.
+A pesar de que el sistema procesa una carga cercana a los 20 TPS con una 
+media de tiempo de respuesta saludable, la tasa de error del 7.01% incumplen 
+los SLAs definidos en el ejercicio. 
+
