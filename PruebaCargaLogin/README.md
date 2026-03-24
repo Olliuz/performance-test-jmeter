@@ -8,7 +8,7 @@ Este repositorio contiene la solución al ejercicio de prueba de carga para el s
 * **CSV:** Datos parametrizados para 5 usuarios.
 
 ## Estructura del Proyecto
-* `prueba_carga_login.jmx`: Script de JMeter con la configuración de la prueba.
+* `Test.jmx`: Script de JMeter con la configuración de la prueba.
 * `users.csv`: Archivo de datos con las credenciales (user, passwd).
 * `conclusiones.txt`: Informe con los resultados y hallazgos.
 
