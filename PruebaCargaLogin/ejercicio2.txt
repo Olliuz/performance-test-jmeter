@@ -1,0 +1,53 @@
+======================================================================
+PRUEBA 2 REPORTE DETALLADO DE PRUEBA DE CARGA - ANÁLISIS DE RENDIMIENTO
+================================================)======================
+
+1. RESUMEN DE EJECUCIÓN
+-----------------------
+* Escenario: Prueba de carga con rampa ascendente.
+* Usuarios Virtuales (VUs): Máximo de 140 concurrentes.
+* Rendimiento (Throughput): 73.18 iteraciones/segundo.
+* Total de Solicitudes HTTP: 276,650 peticiones procesadas.
+* Datos Transferidos: 842 MB recibidos / 588 MB enviados.
+
+2. MÉTRICAS DE DISPONIBILIDAD (HEALTH CHECK)
+--------------------------------------------
+* Tasa de Éxito (Checks): 97.55%
+* Tasa de Error Global: 2.44% (Total: 6,759 fallos)
+
+  Desglose de errores críticos:
+  - Errores de Servidor (HTTP 5xx): 5,987 incidencias (Causa principal de falla).
+  - Errores de Cliente/Lógica (HTTP 4xx): 769 incidencias.
+  - Otros errores (Conexión/Timeout): 3 incidencias.
+
+3. ANÁLISIS DE TIEMPOS DE RESPUESTA (LATENCIA)
+----------------------------------------------
+El sistema presenta una degradación severa en los percentiles más altos:
+
+* Promedio (Avg): 861.68 ms
+* Mediana (Med): 613.42 ms
+* Percentil 90 (p90): 1.28 s
+* Percentil 95 (p95): 1.57 s  <-- Umbral de degradación detectado.
+* Máximo (Max): 29.93 s        <-- Indica saturación o "Hanging" del servidor.
+
+4. DIAGNÓSTICO DEL CUELLO DE BOTELLA
+------------------------------------
+Al desglosar el tiempo de las peticiones (http_req_duration):
+
+* Tiempo de Espera (Waiting/TTFB): 861.21 ms (Promedio).
+* Tiempo de Envío (Sending): 43.22 µs.
+* Tiempo de Recepción (Receiving): 424.03 µs.
+
+CONCLUSIÓN : El 99.9% del tiempo de respuesta se consume en el "Waiting". 
+
+
+5. OBSERVACIONES Y HALLAZGOS
+----------------------------
+- El sistema es estable hasta cierto punto de carga, pero al llegar a los 140 VUs, 
+  la generación de errores 5xx se vuelve masiva.
+- Los tiempos máximos de 29 segundos sugieren que los hilos de ejecución (threads) 
+  del servidor se están agotando, dejando peticiones en cola hasta el timeout.
+
+
+
+
